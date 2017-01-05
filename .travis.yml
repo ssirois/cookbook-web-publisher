@@ -1,0 +1,16 @@
+language: dtd
+
+
+os:
+  - linux
+
+
+addons:
+  apt:
+    packages:
+      - libxml2-utils
+      - shunit2
+
+
+script:
+  - make check
