@@ -9,6 +9,7 @@ addons:
   apt:
     packages:
       - libxml2-utils
+      - xsltproc
       - shunit2
 
 
