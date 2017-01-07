@@ -15,6 +15,8 @@ Cookbook Web Publisher: This is not a metaphor
 
 == Cookbook Web Publisher
 
+image:https://travis-ci.org/ssirois/cookbook-web-publisher.svg?branch=master["Build Status", link="https://travis-ci.org/ssirois/cookbook-web-publisher"]
+
 This is not a metaphor.
 It is an actual food recipe cookbook.
 
