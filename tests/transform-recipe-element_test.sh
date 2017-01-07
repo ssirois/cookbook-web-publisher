@@ -19,18 +19,12 @@
 
 testThatARecipeElementIsTransformAsAnHtmlDocument() {
   xmldoc="$xmldocHeader<recipe />"
-  expected="<!DOCTYPE html>
-  <html>
-    <head>
-      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
-    </head>
-  </html>"
-  
-  actual=`echo ${xmldoc} | ${xsltprocCmd}`
+  htmldoc=`echo ${xmldoc} | ${xsltprocCmd}`
 
-  expected=`removeXMLIndentation "${expected}"`
-  actual=`removeXMLIndentation "${actual}"`
-  assertEquals "${expected}" "${actual}"
+  isHtmlDocumentValid "${htmldoc}"
+  isValid=$?
+
+  assertTrue "Not a valid HTML document." ${isValid}
 }
 
 testThatARecipeElementNameIsLocatedInTheHtmlDocumentTitle() {
@@ -38,22 +32,29 @@ testThatARecipeElementNameIsLocatedInTheHtmlDocumentTitle() {
   <recipe>
     <name>My Recipe</name>
   </recipe>"
-  expected="<!DOCTYPE html>
-  <html>
-    <head>
-      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
-      <title>My Recipe</title>
-    </head>
-  </html>"
-  actual=`echo ${xmldoc} | ${xsltprocCmd}`
 
-  expected=`removeXMLIndentation "${expected}"`
-  actual=`removeXMLIndentation "${actual}"`
+  xPathQueryTest="/html/head/title"
+  
+  expected="<title>My Recipe</title>"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAnArticleStartingAnhRecipeMicroformatIsRenderedAsFirstChildOfHtmlBody() {
+  xmldoc="$xmldocHeader<recipe />"
+
+  xPathQueryTest="(/html/body/*[1])"
+
+  expected="<article class=\"h-recipe\" />"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
   assertEquals "${expected}" "${actual}"
 }
 
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
+  xpathCmd='xpath -q -e'
   xmldocHeader='<?xml version="1.0" encoding="UTF-8"?>'
 }
 

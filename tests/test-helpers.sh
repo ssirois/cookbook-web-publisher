@@ -17,8 +17,15 @@
 # You should have received a copy of the GNU General Public License
 # along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
 
-removeXMLIndentation() {
-  xmlString=$1
-  trimmed=`echo ${xmlString} | sed 's/>[\n\t ]</></g' | tr -d '\n' | tr -d '\t'`
-  echo -n ${trimmed}
+isHtmlDocumentValid() {
+  htmlDocument=$1
+  echo "${htmlDocument}" | tidy -quiet -file /dev/null -output /dev/null
+
+  # a warning is OK
+  if [ $? -eq 1 ]
+  then
+    return 0
+  else
+    return 1
+  fi
 }

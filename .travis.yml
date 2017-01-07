@@ -5,10 +5,16 @@ os:
   - linux
 
 
+before_install:
+  - wget http://binaries.html-tidy.org/binaries/tidy-5.2.0/tidy-5.2.0-64bit.deb
+  - sudo dpkg --install --force-all tidy-5.2.0-64bit.deb
+
+
 addons:
   apt:
     packages:
       - libxml2-utils
+      - libxml-xpath-perl
       - xsltproc
       - shunit2
 

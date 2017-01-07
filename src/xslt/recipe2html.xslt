@@ -20,7 +20,7 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:output method="html" />
+  <xsl:output method="xml" omit-xml-declaration="yes" />
 
   <xsl:template match="/recipe">
     <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
@@ -31,6 +31,11 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:value-of select="./name" />
           </xsl:element>
         </xsl:if>
+      </xsl:element>
+      <xsl:element name="body">
+        <xsl:element name="article">
+          <xsl:attribute name="class">h-recipe</xsl:attribute>
+        </xsl:element>
       </xsl:element>
     </xsl:element>
   </xsl:template>
