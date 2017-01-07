@@ -1,0 +1,102 @@
+= README
+Samuel Sirois <samuel@sirois.info>
+2017-01-06
+Cookbook Web Publisher: This is not a metaphor
+
+:keywords: cookbook, recipe, food, shunit2, xml, dtd, xslt, html, micro-formats
+:page-layout: base
+:page-description: {description}
+:page-keywords: {keywords}
+:toc: right
+:icons: font
+:idseparator: -
+:sectanchors:
+:source-highlighter: highlight.js
+
+== Cookbook Web Publisher
+
+This is not a metaphor.
+It is an actual food recipe cookbook.
+
+A hacky recipe publishing system built for and by me.
+
+== Input Example
+
+[[app-listing]]
+poutine.recipe
+
+[source,xml]
+----
+<recipe id="poutine">
+  <name>Poutine</name>
+  <description>
+    Poutine is a Quebecker dish.
+    Considered a <em>gourmet</em> meal by some… who where kicked out of the pub well after the last call.
+  </description>
+  <ingredients>
+    <ingredient><name>Potatoes</name><quantity unit="lb">3</quantity></ingredient>
+    <ingredient><name>Butter</name><quantity unit="c">¼</quantity></ingredient>
+    <ingredient><name>Flour</name><quantity unit="c">¼</quantity></ingredient>
+    <ingredient><name>Chicken broth</name><quantity unit="ml">284</quantity></ingredient>
+    <ingredient><name>Beef broth</name><quantity unit="ml">284</quantity></ingredient>
+    <ingredient><name>Brown sugar</name><quantity unit="tbsp">1</quantity></ingredient>
+    <ingredient><name>Ketchup</name><quantity unit="tbsp">1</quantity></ingredient>
+    <ingredient><name>Dijon mustard</name><quantity unit="tsp">2</quantity></ingredient>
+    <ingredient><name>Paprika</name><quantity unit="tsp">¼</quantity></ingredient>
+    <ingredient><name>Cayenne pepper</name><quantity unit="tsp">¼</quantity></ingredient>
+    <ingredient><name>Worcestershire sauce</name><quantity unit="tsp">½</quantity></ingredient>
+    <ingredient><name>Cheese curds</name><quantity unit="lb">1</quantity></ingredient>
+  </ingredients>
+  <directions>
+    <direction>Place the potato sticks in a large bowl and cover with cold water. Let stand for 30 minutes to 1 hour at room temperature or up to 24 hours in the refrigerator. Rinse the potatoes, drain them and clean them with a clean cloth.</direction>
+    <direction>Fill a fryer or large deep saucepan with oil. Preheat the oil to 300 ° F (150 ° C) and remove half of the potatoes. Cook for 5 minutes until tender (do not let brown). Place the fries on a baking tray lined with paper towel and set aside. Blanch the rest of the potatoes in the same way.</direction>
+    <direction>Heat the oil to 375 ° F (190 ° C) and cook the reserved fries in two sizes, 3 to 5 minutes or until golden brown. Place chips on baking tray lined with paper towels and set aside.</direction>
+    <direction>Meanwhile, in a saucepan, melt the butter. Add the flour and cook, stirring continuously, for 1 minute. Pour the broths of chicken and beef, stirring continuously with a whisk. Stir in brown sugar, ketchup, mustard, paprika, Cayenne pepper and Worcestershire sauce and bring to a boil. Reduce heat and cook, stirring occasionally, for about 5 minutes or until sauce has thickened.</direction>
+    <direction>When serving, arrange the reserved fries in bowls or soup dishes. Sprinkle with cheese and top with a little sauce. Garnish with the parsley and serve the rest of the sauce, if desired.</direction>
+  </directions>
+</recipe>
+----
+
+== Output Example
+
+[[app-listing]]
+poutine.html
+
+[source,html]
+----
+<html>
+  <head>
+    <title>Poutine</title>
+  </head>
+  <body>
+    <article class="h-recipe">
+      <h1 class="p-name">Poutine</h1>
+      <p class="p-summary">
+        Poutine is a Quebecker dish.
+        Considered a <em>gourmet</em> meal by some… who where kicked out of the pub well after the last call.
+      </p>
+      <ul>
+        <li class="p-ingredient"><span>3 <abbr title="pounds">lb</abbr></span> Potatoes</li>
+        <li class="p-ingredient"><span>¼ <abbr title="cups">c</abbr></span> Butter</li>
+        <li class="p-ingredient"><span>¼ <abbr title="cups">c</abbr></span> Flour</li>
+        <li class="p-ingredient"><span>284 <abbr title="milliliters">ml</abbr></span> Chicken broth</li>
+        <li class="p-ingredient"><span>284 <abbr title="milliliters">ml</abbr></span> Beef broth</li>
+        <li class="p-ingredient"><span>1 <abbr title="table spoon">tbsp</abbr></span> Brown sugar</li>
+        <li class="p-ingredient"><span>1 <abbr title="table spoon">tbsp</abbr></span> Ketchup</li>
+        <li class="p-ingredient"><span>2 <abbr title="tea spoon">tsp</abbr></span> Dijon mustard</li>
+        <li class="p-ingredient"><span>¼ <abbr title="tea spoon">tsp</abbr></span> Paprika</li>
+        <li class="p-ingredient"><span>¼ <abbr title="tea spoon">tsp</abbr></span> Cayenne pepper</li>
+        <li class="p-ingredient"><span>½ <abbr title="tea spoon">tsp</abbr></span> Worcestershire sauce</li>
+        <li class="p-ingredient"><span>1 <abbr title="pounds">lb</abbr></span> Cheese curds</li>
+      </ul>
+      <ol class="e-instructions">
+        <li>Place the potato sticks in a large bowl and cover with cold water. Let stand for 30 minutes to 1 hour at room temperature or up to 24 hours in the refrigerator. Rinse the potatoes, drain them and clean them with a clean cloth.</li>
+        <li>Fill a fryer or large deep saucepan with oil. Preheat the oil to 300 ° F (150 ° C) and remove half of the potatoes. Cook for 5 minutes until tender (do not let brown). Place the fries on a baking tray lined with paper towel and set aside. Blanch the rest of the potatoes in the same way.</li>
+        <li>Heat the oil to 375 ° F (190 ° C) and cook the reserved fries in two sizes, 3 to 5 minutes or until golden brown. Place chips on baking tray lined with paper towels and set aside.</li>
+        <li>Meanwhile, in a saucepan, melt the butter. Add the flour and cook, stirring continuously, for 1 minute. Pour the broths of chicken and beef, stirring continuously with a whisk. Stir in brown sugar, ketchup, mustard, paprika, Cayenne pepper and Worcestershire sauce and bring to a boil. Reduce heat and cook, stirring occasionally, for about 5 minutes or until sauce has thickened.</li>
+        <li>When serving, arrange the reserved fries in bowls or soup dishes. Sprinkle with cheese and top with a little sauce. Garnish with the parsley and serve the rest of the sauce, if desired.</li>
+      </ol>
+    </article>
+  </body>
+</html>
+----
