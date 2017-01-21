@@ -82,6 +82,69 @@ testThatARecipeSummaryIsRenderedAsAParagrapheIdentifiedWithApSummaryMicroformatP
   assertEquals "${expected}" "${actual}"
 }
 
+testThatIngredientsAreTransformedAsAnUnorderedListIdentifiedWithAningredientClass() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients />
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="<ul class=\"ingredients\" />"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAnIngredientIsTransformedAsAListItemIdentifiedWithApIngredientMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><name>One ingredient</name></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\">One ingredient</li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAllIngredientsAreTransformedAsListItemsIdentifiedWithApIngredientMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><name>First ingredient</name></ingredient>
+        <ingredient><name>Second ingredient</name></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\">First ingredient</li>
+      <li class=\"p-ingredient\">Second ingredient</li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'

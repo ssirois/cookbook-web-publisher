@@ -29,3 +29,9 @@ isHtmlDocumentValid() {
     return 1
   fi
 }
+
+removeXMLIndentation() {
+  xmlString=$1
+  trimmed=`echo ${xmlString} | sed 's/>[\n\t ]</></g' | tr -d '\n' | tr -d '\t'`
+  echo -n ${trimmed}
+}

@@ -57,4 +57,20 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:value-of select="." />
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="ingredients">
+    <xsl:element name="ul">
+      <xsl:attribute name="class">ingredients</xsl:attribute>
+
+      <xsl:apply-templates select="ingredient" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="ingredient">
+    <xsl:element name="li">
+      <xsl:attribute name="class">p-ingredient</xsl:attribute>
+
+      <xsl:value-of select="." />
+    </xsl:element>
+  </xsl:template>
 </xsl:stylesheet>
