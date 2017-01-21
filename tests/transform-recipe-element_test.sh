@@ -145,6 +145,52 @@ testThatAllIngredientsAreTransformedAsListItemsIdentifiedWithApIngredientMicrofo
   assertEquals "${expected}" "${actual}"
 }
 
+testThatAMilliliterQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"ml\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"milliliters\">ml</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatACentiliterQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"cl\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"centiliters\">cl</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'

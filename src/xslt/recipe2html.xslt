@@ -70,7 +70,33 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:element name="li">
       <xsl:attribute name="class">p-ingredient</xsl:attribute>
 
+      <xsl:apply-templates select="quantity" />
+
+      <xsl:value-of select="./name" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="quantity[@unit='ml']">
+    <xsl:element name="span">
       <xsl:value-of select="." />
+      <xsl:text> </xsl:text>
+      <xsl:element name="abbr">
+        <xsl:attribute name="title">milliliters</xsl:attribute>
+
+        <xsl:value-of select="./@unit" />
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="quantity[@unit='cl']">
+    <xsl:element name="span">
+      <xsl:value-of select="." />
+      <xsl:text> </xsl:text>
+      <xsl:element name="abbr">
+        <xsl:attribute name="title">centiliters</xsl:attribute>
+
+        <xsl:value-of select="./@unit" />
+      </xsl:element>
     </xsl:element>
   </xsl:template>
 </xsl:stylesheet>
