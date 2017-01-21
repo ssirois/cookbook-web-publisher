@@ -76,27 +76,33 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="quantity[@unit='ml']">
+  <xsl:template match="quantity">
     <xsl:element name="span">
       <xsl:value-of select="." />
       <xsl:text> </xsl:text>
-      <xsl:element name="abbr">
-        <xsl:attribute name="title">milliliters</xsl:attribute>
 
-        <xsl:value-of select="./@unit" />
-      </xsl:element>
+      <xsl:call-template name="unit">
+        <xsl:with-param name="abbreviation" select="@unit" />
+      </xsl:call-template>
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="quantity[@unit='cl']">
-    <xsl:element name="span">
-      <xsl:value-of select="." />
-      <xsl:text> </xsl:text>
-      <xsl:element name="abbr">
-        <xsl:attribute name="title">centiliters</xsl:attribute>
+  <xsl:template name="unit">
+    <xsl:param name="abbreviation" select="." />
 
-        <xsl:value-of select="./@unit" />
-      </xsl:element>
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">
+        <xsl:choose>
+          <xsl:when test="$abbreviation = 'ml'">
+            <xsl:text>milliliters</xsl:text>
+          </xsl:when>
+          <xsl:when test="$abbreviation = 'cl'">
+            <xsl:text>centiliters</xsl:text>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:attribute>
+
+      <xsl:value-of select="$abbreviation" />
     </xsl:element>
   </xsl:template>
 </xsl:stylesheet>
