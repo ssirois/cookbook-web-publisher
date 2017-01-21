@@ -52,6 +52,36 @@ testThatAnArticleStartingAnhRecipeMicroformatIsRenderedAsFirstChildOfHtmlBody() 
   assertEquals "${expected}" "${actual}"
 }
 
+testThatARecipeTitleIsRenderedAsAHeaderLevelOneIdentifiedWithApNameMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <name>My Recipe</name>
+    </recipe>
+  "
+
+  xPathQueryTest="//h1[@class='p-name']"
+
+  expected="<h1 class=\"p-name\">My Recipe</h1>"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatARecipeSummaryIsRenderedAsAParagrapheIdentifiedWithApSummaryMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <description>My description.</description>
+    </recipe>
+  "
+
+  xPathQueryTest="//p[@class='p-summary']"
+
+  expected="<p class=\"p-summary\">My description.</p>"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'

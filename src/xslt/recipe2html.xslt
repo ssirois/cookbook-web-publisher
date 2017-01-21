@@ -35,8 +35,26 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:element name="body">
         <xsl:element name="article">
           <xsl:attribute name="class">h-recipe</xsl:attribute>
+          
+          <xsl:apply-templates />
         </xsl:element>
       </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="name">
+    <xsl:element name="h1">
+      <xsl:attribute name="class">p-name</xsl:attribute>
+
+      <xsl:value-of select="." />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="description">
+    <xsl:element name="p">
+      <xsl:attribute name="class">p-summary</xsl:attribute>
+
+      <xsl:value-of select="." />
     </xsl:element>
   </xsl:template>
 </xsl:stylesheet>
