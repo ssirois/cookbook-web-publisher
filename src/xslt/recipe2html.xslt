@@ -76,27 +76,28 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="quantity[@unit='ml']">
+  <xsl:template match="quantity">
     <xsl:element name="span">
       <xsl:value-of select="." />
       <xsl:text> </xsl:text>
-      <xsl:element name="abbr">
-        <xsl:attribute name="title">milliliters</xsl:attribute>
 
-        <xsl:value-of select="./@unit" />
-      </xsl:element>
+      <xsl:apply-templates mode="transform-unit" select="." />
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="quantity[@unit='cl']">
-    <xsl:element name="span">
-      <xsl:value-of select="." />
-      <xsl:text> </xsl:text>
-      <xsl:element name="abbr">
-        <xsl:attribute name="title">centiliters</xsl:attribute>
+  <xsl:template match="*[@unit='ml']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">milliliters</xsl:attribute>
 
-        <xsl:value-of select="./@unit" />
-      </xsl:element>
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='cl']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">centiliters</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
     </xsl:element>
   </xsl:template>
 </xsl:stylesheet>
