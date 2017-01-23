@@ -100,4 +100,68 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:value-of select="./@unit" />
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="*[@unit='dl']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">deciliters</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='l']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">litres</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='c']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">cups</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='tbsp']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">tablespoons</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='tsp']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">teaspoons</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='lb']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">pounds</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='g']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">grams</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@unit='kg']" mode="transform-unit">
+    <xsl:element name="abbr">
+      <xsl:attribute name="title">kilograms</xsl:attribute>
+
+      <xsl:value-of select="./@unit" />
+    </xsl:element>
+  </xsl:template>
 </xsl:stylesheet>

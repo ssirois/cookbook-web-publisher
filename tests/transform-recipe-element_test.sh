@@ -191,6 +191,190 @@ testThatACentiliterQuantityIsTransformedAsAnAbbreviation() {
   assertEquals "${expected}" "${actual}"
 }
 
+testThatADeciliterQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"dl\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"deciliters\">dl</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatALitreQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"l\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"litres\">l</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatACupQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"c\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"cups\">c</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatATablespoonQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"tbsp\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"tablespoons\">tbsp</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatATeaspoonQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"tsp\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"teaspoons\">tsp</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAPoundQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"lb\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"pounds\">lb</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAGramQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"g\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"grams\">g</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAKilogramQuantityIsTransformedAsAnAbbreviation() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><quantity unit=\"kg\">1</quantity></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\"><span>1 <abbr title=\"kilograms\">kg</abbr></span></li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'
