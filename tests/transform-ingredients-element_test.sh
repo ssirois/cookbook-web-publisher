@@ -80,6 +80,21 @@ testThatAllIngredientsAreTransformedAsListItemsIdentifiedWithApIngredientMicrofo
   assertEquals "${expected}" "${actual}"
 }
 
+testThatAHeaderLevelTwoAnnouncesTheIngredientList() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients />
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']/preceding-sibling::h2"
+
+  expected="<h2>Ingredients</h2>"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'
