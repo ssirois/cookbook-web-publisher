@@ -381,4 +381,42 @@ oneTimeSetUp() {
   xmldocHeader='<?xml version="1.0" encoding="UTF-8"?>'
 }
 
+testThatDirectionsAreTransformedAsAnOrderedListIdentifiedWithAneInstructionsMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <directions />
+    </recipe>
+  "
+
+  xPathQueryTest="//ol[@class='e-instructions']"
+
+  expected="<ol class=\"e-instructions\" />"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatADirectionIsTransformedAsAListItem() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <directions>
+        <direction>Do something</direction>
+      </directions>
+    </recipe>
+  "
+
+  xPathQueryTest="//ol[@class='e-instructions']"
+
+  expected="
+    <ol class=\"e-instructions\">
+      <li>Do something</li>
+    </ol>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
 . tests/test-helpers.sh

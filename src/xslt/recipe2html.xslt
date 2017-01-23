@@ -164,4 +164,19 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
       <xsl:value-of select="./@unit" />
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="directions">
+    <xsl:element name="ol">
+      <xsl:attribute name="class">e-instructions</xsl:attribute>
+
+      <xsl:apply-templates select="direction" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="direction">
+    <xsl:element name="li">
+      <xsl:value-of select="." />
+    </xsl:element>
+  </xsl:template>
+
 </xsl:stylesheet>
