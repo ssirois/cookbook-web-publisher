@@ -1,6 +1,6 @@
-# transform-recipe-element_test.sh -- tests the recipe element transformation
+# transform-ingredients-element_test.sh -- tests the ingredients element transformation
 #
-# Copyright 2016 Samuel Sirois (sds) <samuel@sirois.info>
+# Copyright 2017 Samuel Sirois (sds) <samuel@sirois.info>
 #
 # This file is part of cookbook web publisher.
 #
@@ -17,68 +17,66 @@
 # You should have received a copy of the GNU General Public License
 # along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
 
-testThatARecipeElementIsTransformAsAnHtmlDocument() {
-  xmldoc="$xmldocHeader<recipe />"
-  htmldoc=`echo ${xmldoc} | ${xsltprocCmd}`
-
-  isHtmlDocumentValid "${htmldoc}"
-  isValid=$?
-
-  assertTrue "Not a valid HTML document." ${isValid}
-}
-
-testThatARecipeElementNameIsLocatedInTheHtmlDocumentTitle() {
-  xmldoc="$xmldocHeader
-  <recipe>
-    <name>My Recipe</name>
-  </recipe>"
-
-  xPathQueryTest="/html/head/title"
-  
-  expected="<title>My Recipe</title>"
-  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
-
-  assertEquals "${expected}" "${actual}"
-}
-
-testThatAnArticleStartingAnhRecipeMicroformatIsRenderedAsFirstChildOfHtmlBody() {
-  xmldoc="$xmldocHeader<recipe />"
-
-  xPathQueryTest="(/html/body/*[1])"
-
-  expected="<article class=\"h-recipe\" />"
-  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
-
-  assertEquals "${expected}" "${actual}"
-}
-
-testThatARecipeTitleIsRenderedAsAHeaderLevelOneIdentifiedWithApNameMicroformatProperty() {
+testThatIngredientsAreTransformedAsAnUnorderedListIdentifiedWithAningredientClass() {
   xmldoc="$xmldocHeader
     <recipe>
-      <name>My Recipe</name>
+      <ingredients />
     </recipe>
   "
 
-  xPathQueryTest="//h1[@class='p-name']"
+  xPathQueryTest="//ul[@class='ingredients']"
 
-  expected="<h1 class=\"p-name\">My Recipe</h1>"
+  expected="<ul class=\"ingredients\" />"
   actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
 
   assertEquals "${expected}" "${actual}"
 }
 
-testThatARecipeDescriptionIsRenderedAsAParagrapheIdentifiedWithApSummaryMicroformatProperty() {
+testThatAnIngredientIsTransformedAsAListItemIdentifiedWithApIngredientMicroformatProperty() {
   xmldoc="$xmldocHeader
     <recipe>
-      <description>My description.</description>
+      <ingredients>
+        <ingredient><name>One ingredient</name></ingredient>
+      </ingredients>
     </recipe>
   "
 
-  xPathQueryTest="//p[@class='p-summary']"
+  xPathQueryTest="//ul[@class='ingredients']"
 
-  expected="<p class=\"p-summary\">My description.</p>"
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\">One ingredient</li>
+    </ul>
+  "
   actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
 
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
+  assertEquals "${expected}" "${actual}"
+}
+
+testThatAllIngredientsAreTransformedAsListItemsIdentifiedWithApIngredientMicroformatProperty() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <ingredients>
+        <ingredient><name>First ingredient</name></ingredient>
+        <ingredient><name>Second ingredient</name></ingredient>
+      </ingredients>
+    </recipe>
+  "
+
+  xPathQueryTest="//ul[@class='ingredients']"
+
+  expected="
+    <ul class=\"ingredients\">
+      <li class=\"p-ingredient\">First ingredient</li>
+      <li class=\"p-ingredient\">Second ingredient</li>
+    </ul>
+  "
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  expected=`removeXMLIndentation "${expected}"`
+  actual=`removeXMLIndentation "${actual}"`
   assertEquals "${expected}" "${actual}"
 }
 
