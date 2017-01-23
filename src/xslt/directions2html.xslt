@@ -22,6 +22,10 @@ along with cookbook web publisher.  If not, see <http://www.gnu.org/licenses/>.
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
   <xsl:template match="directions">
+    <xsl:element name="h2">
+      <xsl:text>Directions</xsl:text>
+    </xsl:element>
+
     <xsl:element name="ol">
       <xsl:attribute name="class">e-instructions</xsl:attribute>
 

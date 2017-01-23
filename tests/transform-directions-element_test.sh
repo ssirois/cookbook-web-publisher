@@ -55,6 +55,21 @@ testThatADirectionIsTransformedAsAListItem() {
   assertEquals "${expected}" "${actual}"
 }
 
+testThatAHeaderLevelTwoAnnouncesTheIngredientList() {
+  xmldoc="$xmldocHeader
+    <recipe>
+      <directions />
+    </recipe>
+  "
+
+  xPathQueryTest="//ol[@class='e-instructions']/preceding-sibling::h2"
+
+  expected="<h2>Directions</h2>"
+  actual=`echo ${xmldoc} | ${xsltprocCmd} | ${xpathCmd} ${xPathQueryTest}`
+
+  assertEquals "${expected}" "${actual}"
+}
+
 oneTimeSetUp() {
   xsltprocCmd='xsltproc --encoding UTF-8 src/xslt/recipe2html.xslt -'
   xpathCmd='xpath -q -e'
