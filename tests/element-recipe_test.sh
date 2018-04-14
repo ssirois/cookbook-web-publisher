@@ -27,16 +27,6 @@ testThatARecipeElementIsNotEnough()
   assertEquals ${xmllint_error_validation_error} ${actual}
 }
 
-testThatARecipeElementMustHaveANameAttribute()
-{
-  xmldoc="$xmldocHeader
-  <recipe />"
-  echo "${xmldoc}" | ${xmllintCmd}
-  actual=$?
-
-  assertEquals ${xmllint_error_validation_error} ${actual}
-}
-
 testThatARecipeElementMustHaveAName()
 {
   xmldoc="$xmldocHeader
