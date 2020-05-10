@@ -6,7 +6,7 @@ os:
 
 
 before_install:
-  - wget http://binaries.html-tidy.org/binaries/tidy-5.2.0/tidy-5.2.0-64bit.deb
+  - wget https://github.com/htacg/tidy-html5/releases/download/5.2.0/tidy-5.2.0-64bit.deb
   - sudo dpkg --install --force-all tidy-5.2.0-64bit.deb
 
 
